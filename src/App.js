@@ -19,7 +19,7 @@ class App extends React.Component {
     .then(response =>{
           this.setState({editBook : response.data});
     });
-};
+}; //Callback function for booklist edit button. Because we need data in AddBook comp to show in form.
   
     render(){
       return (

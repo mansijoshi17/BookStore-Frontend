@@ -23,7 +23,7 @@ class AddBook extends React.Component {
                 price: this.props.editData.price,
                 imgurl: this.props.editData.imgurl
             })
-        }
+        } //For add the value of form fields while edit details.
     }
 
     handelChange(event) {
@@ -42,6 +42,7 @@ class AddBook extends React.Component {
             price,
             imgurl
         }
+        //When we click on edit then only we got the editData so if our editData is null then we will call add item otherwise save item (save changes).
         if(this.props.editData != null){
             fetch(`http://localhost:4000/books/update/book/${this.props.editData.id}`, {
             method: 'PUT',
@@ -49,7 +50,7 @@ class AddBook extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(book)
-        }).then(() => console.log('Book updated'));
+        }).then(() => console.log('Book updated')); 
         }
        else{
         fetch('http://localhost:4000/books/addbook', {
