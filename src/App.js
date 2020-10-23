@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import BookList from './Components/BookList';
+import AddBook from './Components/AddBook';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  constructor(){
+    super();
+    this.state = {
+      editBook : null
+    }
+    this.editBook = this.editBook.bind(this);
+  }
+
+  editBook(id){
+    fetch(`http://localhost:4000/books/edit/${id}`)
+    .then(response => response.json())
+    .then(response =>{
+          this.setState({editBook : response.data});
+    });
+};
+  
+    render(){
+      return (
+        <div className="App">
+            <div className="row">
+                <div className="col-6"><AddBook editData={this.state.editBook}/></div>
+                <div className="col-6"><BookList editBook = {this.editBook}/></div>
+            </div>
+        </div>
+      );
+    }
 }
 
 export default App;
