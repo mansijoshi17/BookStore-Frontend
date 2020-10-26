@@ -44,7 +44,7 @@ class AddBook extends React.Component {
         }
         //When we click on edit then only we got the editData so if our editData is null then we will call add item otherwise save item (save changes).
         if(this.props.editData != null){
-            fetch(`http://localhost:4000/books/update/book/${this.props.editData.id}`, {
+            fetch(`http://localhost:5000/books/update/book/${this.props.editData._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ class AddBook extends React.Component {
         }).then(() => console.log('Book updated')); 
         }
        else{
-        fetch('http://localhost:4000/books/addbook', {
+        fetch('http://localhost:5000/books/addbook', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

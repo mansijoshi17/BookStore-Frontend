@@ -11,7 +11,7 @@ class BookList extends Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:4000/books/list")
+        fetch("http://localhost:5000/books/list")
             .then(response => response.json())
             .then(response =>{
                   this.setState({ bookList: response.data })
@@ -19,7 +19,7 @@ class BookList extends Component {
     }
 
     deletBook(id){
-        fetch(`http://localhost:4000/books/deletebook/${id}`, {
+        fetch(`http://localhost:5000/books/deletebook/${id}`, {
             method: 'DELETE',
         }).then(() => console.log('Book created'));
     }
@@ -38,10 +38,10 @@ class BookList extends Component {
                             </div>
                             <div className="row"> 
                               <div className="col-6">
-                              <button type="submit" className="btn btn-success" onClick={() => this.props.editBook(book.id)}>EDIT</button>
+                              <button type="submit" className="btn btn-success" onClick={() => this.props.editBook(book._id)}>EDIT</button>
                               </div>
                               <div className="col-6">
-                              <button type="submit" className="btn btn-danger" onClick={() => this.deletBook(book.id)}>DELETE</button>
+                              <button type="submit" className="btn btn-danger" onClick={() => this.deletBook(book._id)}>DELETE</button>
                               </div>
                             </div>
                         </div>
