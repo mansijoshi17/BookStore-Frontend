@@ -6,8 +6,8 @@ class BookList extends Component {
         return (
             <div>
                 <ul className="list-group">
-                    {this.props.bookList.map((book) => {
-                        return <li className="list-group-item"><div className="media" key={book.id}>
+                    {this.props.bookList == null ? <div>NO Data</div> : this.props.bookList.map((book) => {
+                        return <li className="list-group-item"><div className="media" key={book._id}>
                             <img src={book.imgurl} width="100px" className="mr-3" alt="..." />
                             <div className="media-body">
                                 <h4 className="mt-0">{book.name}</h4>

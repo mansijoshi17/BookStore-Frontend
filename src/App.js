@@ -39,9 +39,9 @@ class App extends React.Component {
 
   editBook(id) {
     fetch(`http://localhost:5000/books/edit/${id}`)
-      .then(response => response.json())
-      .then(response => {
-        this.setState({ editBook: response.data });
+      .then(() => {
+        let elementIndex = this.state.bookList.findIndex(item => item._id === id) 
+        this.setState({ editBook: this.state.bookList[elementIndex] });
       });
   }; //Callback function for booklist edit button. Because we need data in AddBook comp to show in form.
 
@@ -53,14 +53,18 @@ class App extends React.Component {
         imgurl
     }//When we click on edit then only we got the editData so if our editData is null then we will call add item otherwise save item (save changes).
     if(this.state.editBook != null){
-     // "https://medium.com/javascript-in-plain-english/react-updating-a-value-in-state-array-7bae7c7eaef9"
         fetch(`http://localhost:5000/books/update/book/${this.state.editBook._id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(book)
-    }).then(() => console.log('Book updated')); 
+    }).then(() => {
+      let elementIndex = this.state.bookList.findIndex(item => item._id === this.state.editBook._id);
+      let newArray = [...this.state.bookList];
+      newArray[elementIndex] = {...newArray[elementIndex], name: name, author:author, price:price, imgurl:imgurl}
+      this.setState({bookList: newArray});
+    }); 
     }
    else{
     fetch('http://localhost:5000/books/addbook', {
@@ -69,11 +73,12 @@ class App extends React.Component {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(book)
-    }).then(() => {
+    }).then((response) => response.json())
+    .then(response => {
       let bookList = [...this.state.bookList];
-      bookList.push(book);
+      bookList.push(response.data);
       this.setState({ bookList });
-    });
+    } );
    }
 }
   
